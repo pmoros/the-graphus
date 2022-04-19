@@ -3,8 +3,7 @@ import { BrowserRouter, Routes, Route, } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 //components
-import Header from './components/general/Header'
-import Footer from './components/general/Footer'
+import Header from './components/Header'
 
 //views
 import Home from "./views/Home";
@@ -26,7 +25,6 @@ function App() {
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
-      <Footer/>
     </>
   );
 }
