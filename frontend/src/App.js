@@ -12,7 +12,7 @@ import Progress from './views/Progress';
 import Schedule from "./views/Schedule";
 import Error from "./views/Error";
 
-function App() {
+const App = () => {
   return (
     <>
       <BrowserRouter>
