@@ -1,6 +1,6 @@
 # the-graphus
 The Graphus is a tool that helps students track their progress in their curricula.
 
-## [Backend](/pmoros/the-graphus/tree/backend)
+## [Backend](https://github.com/pmoros/the-graphus/tree/backend)
 
-## [Frontend](/pmoros/the-graphus/tree/frontend)
+## [Frontend](https://github.com/pmoros/the-graphus/tree/frontend)
