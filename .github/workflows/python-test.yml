@@ -3,6 +3,7 @@ name: Python Testing
 on:
   push:
     branches:
+      - backend    
       - 'backend/*/*'
       - '!frontend/*/*'
 jobs:
