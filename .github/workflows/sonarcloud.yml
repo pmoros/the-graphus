@@ -5,8 +5,8 @@ on:
   # a pull request.
   push:
     branches:
-      - backend
-      - frontend
+      - 'backend'
+      - 'frontend'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:

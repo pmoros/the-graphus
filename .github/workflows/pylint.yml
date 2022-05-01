@@ -3,7 +3,8 @@ name: Pylint
 on:
   push:
     branches:
-      - 'backend/*'
+      - 'backend'
+      - 'backend/*'      
       - '!frontend/*'
 jobs:
   build:
