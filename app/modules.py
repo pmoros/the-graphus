@@ -11,4 +11,3 @@ except Exception as e:
 # generic_controller = GenericController(db)
 
 controller_ping = ControllerPing(db)
-

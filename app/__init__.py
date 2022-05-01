@@ -6,12 +6,7 @@ from app.modules import *
 
 # Active endpoints noted as following:
 # (url_prefix, blueprint_object)
-ACTIVE_ENDPOINTS = [
-    {
-        "url": "/ping",
-        "bp": ping
-    }
-]
+ACTIVE_ENDPOINTS = [{"url": "/ping", "bp": ping}]
 
 
 def create_app():
