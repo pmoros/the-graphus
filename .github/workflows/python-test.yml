@@ -25,7 +25,7 @@ jobs:
       - name: Test with unittest
         run: |
           python -m unittest discover -s ./tests  -p 'test_*.py'
-          coverage run --source python_learning -m unittest discover && coverage xml -i
+          coverage run --source app -m unittest discover && coverage xml -i
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
