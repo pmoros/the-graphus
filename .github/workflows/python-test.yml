@@ -3,8 +3,8 @@ name: Python Testing
 on:
   push:
     branches:
-      - 'backend/*/*'
-      - '!frontend/*/*'
+      - 'backend/*'
+      - '!frontend/*'
 jobs:
   build:
     runs-on: ubuntu-latest
