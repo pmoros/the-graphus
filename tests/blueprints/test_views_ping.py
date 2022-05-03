@@ -1,5 +1,7 @@
 import app
 from unittest.case import TestCase
+from unittest.mock import patch
+from tests.utils.constants import *
 
 
 class TestViewsPing(TestCase):
@@ -9,6 +11,8 @@ class TestViewsPing(TestCase):
 
     ''' ping_pong() tests '''
 
-    def test_ping_pong(self):
+    @patch('app.controllers.controller_ping.ControllerPing.ping_pong')
+    def test_ping_pong(self, mock_ping_pong):
+        mock_ping_pong.return_value = PING_RESPONSE
         result = self.app.get('/ping')
         self.assertEqual(result.status_code, 200)
