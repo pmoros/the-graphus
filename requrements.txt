@@ -1,0 +1,2 @@
+flask==2.1.2
+flask_wtf==1.0.1
