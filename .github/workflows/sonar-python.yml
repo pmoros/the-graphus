@@ -2,6 +2,8 @@ name: Static Analysis Backend
 
 on:
   push:
+    branches:
+      - branch-backend
   pull_request:
     types: [opened, synchronize, reopened]
     branches:

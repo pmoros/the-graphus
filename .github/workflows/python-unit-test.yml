@@ -2,6 +2,8 @@ name: Unit Test Python Backend
 
 on:
   push:
+    branches:
+      - branch-backend
   pull_request:
     branches:
       - branch-backend
