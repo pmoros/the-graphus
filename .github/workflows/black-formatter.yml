@@ -22,7 +22,7 @@ jobs:
           pip3 install black
       - name: Display file changes
         run: |
-          python3 -m black . --check --diff
+          python3 -m black . --diff
       - name: Auto format Python files
         run: |
           python3 -m black .
