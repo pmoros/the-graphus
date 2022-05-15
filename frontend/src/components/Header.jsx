@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
 
 const Header = () => {
 
@@ -25,16 +27,12 @@ const Header = () => {
                 <li><Link className="nav-link px-2 text-secondary" to="/Progress">Progress</Link></li>
                 <li><Link className="nav-link px-2 text-secondary" to="/Schedule">Schedule</Link></li>
               </ul>
-              <div className="text-end">
-                <button type="button" className="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold" onClick={handleLogin}>Logout</button>
-              </div>
+              <LogoutButton handleLogin={handleLogin}/>
             </>
             :
             <>
               <div className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"></div>
-              <div className="justify-content-righ">
-                <button type="button" className="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold" onClick={handleLogin}>Login</button>
-              </div>
+              <LoginButton handleLogin={handleLogin}/>
             </>
           }
         </div>

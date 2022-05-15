@@ -1,7 +1,11 @@
+import { useSelector } from 'react-redux'
+
 function Progress () {
+  const token = useSelector((state) => state.token.value)
+
   return (
     <h1>
-      Progress view
+      {`token value: ${token}`}
     </h1>
   )
 }
