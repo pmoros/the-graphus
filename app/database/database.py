@@ -1,16 +1,23 @@
 """Handle database configuration."""
 import os
 from threading import Lock
-
+from urllib.parse import urlparse
 import pymysql
+import base64
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 try:
-    schema_db = "the_graphus"
-    user_db = os.getenv("the_graphus_db_user", "")
-    pwd_db = os.getenv("the_graphus_db_pwd", "")
-    address = os.getenv("the_graphus_db_address", "")
-    ip = address.split(":")[0]
-    port = int(address.split(":")[1])
+    db_uri = os.getenv("DB_URI", "")
+    db_uri = base64.b64decode(db_uri).decode("utf-8")
+    parsed_uri = urlparse(db_uri)
+    host = parsed_uri.hostname
+    port = parsed_uri.port
+    schema = parsed_uri.path[1:]
+    user = os.getenv("DB_USER")
+    password = os.getenv("DB_PASSWORD")
 
 except Exception as db_e:
     print(db_e)
@@ -21,13 +28,13 @@ class Database:
         self.lock = Lock()
         try:
             self.conn = pymysql.connect(
-                host=ip,
+                host=host,
                 port=port,
-                user=user_db,
-                passwd=pwd_db,
-                db=schema_db,
+                db=schema,
+                user=user,
+                password=password,
                 cursorclass=pymysql.cursors.DictCursor,
             )
         except Exception as e:
             self.conn = None
-            print(e)
+            print(f"ERROR WITH DB CONNECTION: {e}")
