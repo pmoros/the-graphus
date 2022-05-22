@@ -1,4 +1,4 @@
-from app.controllers.controller_ping import ControllerPing
+from app.controllers.ping_controller import PingController
 from app.database.database import Database
 
 try:
@@ -10,4 +10,4 @@ except Exception as e:
 # TODO: def controllers
 # generic_controller = GenericController(db)
 
-controller_ping = ControllerPing(db)
+ping_controller = PingController(db)

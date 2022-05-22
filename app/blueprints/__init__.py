@@ -1,3 +1,3 @@
-from app.blueprints.views_ping import ping
+from app.blueprints.ping_views import ping
 
 __all__ = ["ping"]
