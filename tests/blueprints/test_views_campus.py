@@ -1,7 +1,7 @@
 import app
 from unittest.case import TestCase
 
-from tests.utils.constants import *
+from app.utils.constants import PING_RESPONSE
 
 
 class TestViewsCampus(TestCase):
