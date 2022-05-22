@@ -2,8 +2,8 @@ from flask.app import Flask
 from unittest import TestCase
 from unittest.mock import MagicMock
 
-from app.controllers.controller_ping import ControllerPing
-from tests.utils.constants import *
+from app.controllers.ping_controller import PingController
+from app.utils.constants import PING_RESPONSE
 
 
 class TestControllerPing(TestCase):
@@ -12,7 +12,7 @@ class TestControllerPing(TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
         self.database = MagicMock(return_value='Database')
-        self.controller = ControllerPing(self.database)
+        self.controller = PingController(self.database)
 
     def tearDown(self) -> None:
         self.app_context.pop()

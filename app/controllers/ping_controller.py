@@ -1,7 +1,7 @@
-from tests.utils.constants import PING_RESPONSE
+from app.utils.constants import PING_RESPONSE
 
 
-class ControllerPing:
+class PingController:
     def __init__(self, db):
         self.db = db
 
