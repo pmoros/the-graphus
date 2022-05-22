@@ -1,3 +1,4 @@
+from app.controllers.campus_controller import CampusController
 from app.controllers.ping_controller import PingController
 from app.database.database import Database
 
@@ -10,4 +11,5 @@ except Exception as e:
 # TODO: def controllers
 # generic_controller = GenericController(db)
 
-controller_ping = PingController(db)
+ping_controller = PingController(db)
+campus_controller = CampusController(db)

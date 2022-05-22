@@ -16,9 +16,20 @@ def ping():
 
 
 @campus.route("/", methods=["GET"])
-def get_all_campuses():
+def get_all():
+    """
+    Return all campuses.
+    ---
+    tags:
+        - campus
+    responses:
+        200:
+            description: Returns all campuses.
+        404:
+            description: No campuses found
+    """
     try:
-        res = app.campuses.get_all_campuses()
-        return jsonify({SUCCESS_RESPONSE_TAG: res}), 200
+        res = app.campus_controller.get_all()
+        return jsonify({SUCCESS_RESPONSE_TAG: res}), HTTPStatus.OK
     except FileNotFoundError:
-        return {ERROR_RESPONSE_TAG: "there are no users in database"}, 404
+        return {ERROR_RESPONSE_TAG: "there are no campuses in database"}, HTTPStatus.NOT_FOUND
