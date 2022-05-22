@@ -8,16 +8,17 @@ from flask_wtf.csrf import CSRFProtect
 # Active endpoints noted as following:
 # (url_prefix, blueprint_object)
 ACTIVE_ENDPOINTS = [
-    {
-        "url": "/ping",
-        "bp": ping
-    },
+    {"url": "/ping", "bp": ping},
+    {"url": "/login", "bp": login}
 ]
 
 
 def create_app():
     """Create Flask app."""
     app = Flask(__name__)
+
+    app.config['WTF_CSRF_CHECK_DEFAULT'] = False
+
     csrf = CSRFProtect()
     csrf.init_app(app)  # Compliant
 

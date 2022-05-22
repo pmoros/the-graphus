@@ -1,30 +1,11 @@
 """Handle database configuration."""
-import os
 from threading import Lock
-from urllib.parse import urlparse
+
 import pymysql
-import base64
-
-from dotenv import load_dotenv
-
-load_dotenv()
-
-try:
-    db_uri = os.getenv("DB_URI", "")
-    db_uri = base64.b64decode(db_uri).decode("utf-8")
-    parsed_uri = urlparse(db_uri)
-    host = parsed_uri.hostname
-    port = parsed_uri.port
-    schema = parsed_uri.path[1:]
-    user = os.getenv("DB_USER")
-    password = os.getenv("DB_PASSWORD")
-
-except Exception as db_e:
-    print(db_e)
 
 
 class Database:
-    def __init__(self):
+    def __init__(self, host, port, schema, user, password):
         self.lock = Lock()
         try:
             self.conn = pymysql.connect(
