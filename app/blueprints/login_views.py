@@ -7,5 +7,5 @@ login = Blueprint("login", __name__)
 
 
 @login.route("/", methods=["POST"])
-def login_method():
+def google_login():
     return "Login", HTTPStatus.OK
