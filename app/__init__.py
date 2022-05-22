@@ -12,10 +12,6 @@ ACTIVE_ENDPOINTS = [
         "url": "/ping",
         "bp": ping
     },
-    {
-        "url": "/campus",
-        "bp": campus
-    }
 ]
 
 
