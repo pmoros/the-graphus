@@ -5,7 +5,7 @@ from unittest.mock import patch
 from app.utils.constants import PING_RESPONSE
 
 
-class TestViewsPing(TestCase):
+class TestPingViews(TestCase):
     def setUp(self) -> None:
         self.app = app.create_app().test_client()
         self.app.testing = True

@@ -6,7 +6,7 @@ from app.controllers.ping_controller import PingController
 from app.utils.constants import PING_RESPONSE
 
 
-class TestControllerPing(TestCase):
+class TestPingController(TestCase):
     def setUp(self) -> None:
         self.app = Flask('test')
         self.app_context = self.app.app_context()
