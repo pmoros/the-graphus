@@ -15,7 +15,15 @@ class TestGoogleAuthService(TestCase):
         google_client_id = os.getenv("GOOGLE_CLIENT_ID", "")
         self.google_auth_service = GoogleAuthService(google_client_id)
 
-    def test_validate_token_ok(self):
-        token = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjQ4NmYxNjQ4MjAwNWEyY2RhZjI2ZDkyMTQwMThkMDI5Y2E0NmZiNTYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiMjc2MTgzMTE4ODIzLXJoYmlwaGVwYTliczNic2kwNG1saXFuNWluYnA1bmxlLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMjc2MTgzMTE4ODIzLXJoYmlwaGVwYTliczNic2kwNG1saXFuNWluYnA1bmxlLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA5MzExMzU0MjQyNjk4ODU2MDE2IiwiaGQiOiJ1bmFsLmVkdS5jbyIsImVtYWlsIjoiZ2Fuem9sYUB1bmFsLmVkdS5jbyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiVFFRaGhUNGw5MGRZTFVWUi1FWVU1USIsIm5hbWUiOiJHYWJyaWVsIEFuZHJlcyBBbnpvbGEgVGFjaGFrIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdnYWZFUDR6bzJMQ29yOEkyLWprSHI0Wk9YbHFwWm5kMl9PdnFCSHNRPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkdhYnJpZWwgQW5kcmVzIiwiZmFtaWx5X25hbWUiOiJBbnpvbGEgVGFjaGFrIiwibG9jYWxlIjoiZW4tR0IiLCJpYXQiOjE2NTMyNjU5NzYsImV4cCI6MTY1MzI2OTU3NiwianRpIjoiZTYwNDY3NWI0ODM4YTMwZDJjNmIyNTI1NzViMjU2NzFkYjVhYTI4MCJ9.E8lxTNz70GVP_gZZJVhAiVxcRasUTkL7_6Jp92dP1aLJhviXiFah7bT0ZA4qTGEbaLeD66gqn_mxAReRWcEul5VyV1A7Z8OUlGRDcRpjxbtZGxzjlOpUzYvWOOeo5_pe03KqUgUcY_Bneg8wRGUVwpCYoDmAEZXhEfQzwN56wAXnS_jbzpVrSRxZwW9ygPCRhWVir4xAtGW17ky6DnYsBFwDtHATNc_GiL3g4DsJJAOtd9DjKna2LZQ8Ea06Jor6ySzwMJNTBSnVVk-G6AmkgVrKmGPZQLH5nr6KZyYhSkYuEdNodcC51oFAHUQaKR-jegrYD2fh-SWYIDAr-a-edA"
+    @patch("google.oauth2.id_token.verify_oauth2_token")
+    def test_validate_token_ok(self, google_mock):
+        google_mock.return_value = {}
+        token = "valid_token"
         result = self.google_auth_service.validate_token(token)
         self.assertIsNotNone(result)
+
+    @patch("google.oauth2.id_token.verify_oauth2_token")
+    def test_validate_token_fail(self, google_mock):
+        google_mock.side_effect = ValueError
+        token = "invalid_token"
+        self.assertRaises(InvalidTokenException, self.google_auth_service.validate_token, token)
