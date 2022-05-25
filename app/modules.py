@@ -23,8 +23,6 @@ password = os.getenv("DB_PASSWORD", "")
 
 google_client_id = os.getenv("GOOGLE_CLIENT_ID", "")
 
-secret_jwt_key = os.getenv("SECRET_KEY", "")
-
 try:
     db = Database(host, port, schema, user, password)
 except Exception as e:
@@ -34,4 +32,4 @@ except Exception as e:
 google_auth_service = GoogleAuthService(google_client_id)
 
 ping_controller = PingController(db)
-login_controller = LoginController(google_auth_service, secret_jwt_key)
+login_controller = LoginController(db, google_auth_service)

@@ -1,7 +1,6 @@
 class InvalidTokenException(Exception):
-    """
-    Exception raised when the token is invalid.
-    """
+    pass
 
-    def __init__(self, message):
-        self.message = message
+
+class UserNotFoundException(Exception):
+    pass

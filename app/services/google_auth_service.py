@@ -14,4 +14,4 @@ class GoogleAuthService:
             id_info = id_token.verify_oauth2_token(token, self.requests, self.client_id)
             return id_info
         except ValueError:
-            raise InvalidTokenException("Invalid token")
+            raise InvalidTokenException

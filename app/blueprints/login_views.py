@@ -21,7 +21,7 @@ def error_decorator(func):
         try:
             return func(*args, **kwargs)
         except InvalidTokenException as ite:
-            logger.error(f"{ite.__class__.__name__}: {ite.message}")
+            logger.error(f"{ite.__class__.__name__}: {ite}")
             return jsonify({ERROR_RESPONSE_TAG: 'Invalid tokenId'}), HTTPStatus.UNAUTHORIZED
         except ValidationError as ve:
             logger.error(f"{ve.__class__.__name__}: {ve}")
