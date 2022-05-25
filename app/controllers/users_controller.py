@@ -1,5 +1,4 @@
 from http import HTTPStatus
-from functools import wraps
 
 from app.exceptions.exceptions import UserNotFoundException
 
