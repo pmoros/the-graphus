@@ -1,4 +1,4 @@
 from app.blueprints.ping_views import ping
-from app.blueprints.login_views import login
+from app.blueprints.users_views import users
 
-__all__ = ["ping", "login"]
+__all__ = ["ping", "users"]

@@ -9,7 +9,7 @@ from flask_wtf.csrf import CSRFProtect
 # (url_prefix, blueprint_object)
 ACTIVE_ENDPOINTS = [
     {"url": "/ping", "bp": ping},
-    {"url": "/login", "bp": login}
+    {"url": "/users", "bp": users}
 ]
 
 

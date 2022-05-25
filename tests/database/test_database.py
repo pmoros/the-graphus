@@ -1,14 +1,14 @@
 from unittest import TestCase
 
 import app
-from app.database.database import Database
+from app import create_database_conn
 
 
 class DatabaseTest(TestCase):
     def setUp(self) -> None:
         self.app = app.create_app().test_client()
         self.app.testing = True
-        self.database = Database()
+        self.database = create_database_conn()
 
     def test_init(self):
         assert self.database.lock is not None
