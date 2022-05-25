@@ -12,8 +12,7 @@ class TestGoogleAuthService(TestCase):
     def setUp(self) -> None:
         load_dotenv()
 
-        google_client_id = os.getenv("GOOGLE_CLIENT_ID", "")
-        self.google_auth_service = GoogleAuthService(google_client_id)
+        self.google_auth_service = GoogleAuthService("client_id")
 
     @patch("google.oauth2.id_token.verify_oauth2_token")
     def test_validate_token_ok(self, google_mock):
