@@ -1,12 +1,6 @@
 name: Black Python
 
-on:
-  push:
-    branches:
-      - branch-backend
-  pull_request:
-    branches:
-      - branch-backend
+on: [push]
 jobs:
   black:
     runs-on: ubuntu-latest

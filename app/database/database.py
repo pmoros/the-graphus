@@ -3,6 +3,8 @@ from threading import Lock
 
 import pymysql
 
+from app.log import logger
+
 
 class Database:
     def __init__(self, host, port, schema, user, password):
@@ -18,4 +20,4 @@ class Database:
             )
         except Exception as e:
             self.conn = None
-            print(f"ERROR WITH DB CONNECTION: {e}")
+            logger.exception("Unable to connect to the database.")
