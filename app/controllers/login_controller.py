@@ -26,7 +26,7 @@ class LoginController:
         google_user = self.auth_service.validate_token(google_token)
 
         try:
-            db_user = self.db.get_user_by_google_id(google_user.get('sub'))
+            db_user = self.db.get_user_by_sub(google_user.get('sub'))
         except UserNotFoundException:
             db_user = self.db.create_user(google_user)
 
