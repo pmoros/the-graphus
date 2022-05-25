@@ -1,8 +1,5 @@
-import os
 from unittest import TestCase
 from unittest.mock import patch
-
-from dotenv import load_dotenv
 
 from app.exceptions.exceptions import InvalidTokenException
 from app.services.google_auth_service import GoogleAuthService
@@ -10,8 +7,6 @@ from app.services.google_auth_service import GoogleAuthService
 
 class TestGoogleAuthService(TestCase):
     def setUp(self) -> None:
-        load_dotenv()
-
         self.google_auth_service = GoogleAuthService("client_id")
 
     @patch("google.oauth2.id_token.verify_oauth2_token")
