@@ -7,11 +7,14 @@ import base64
 
 from dotenv import load_dotenv
 
+from app.database import logger
+
+
 load_dotenv()
 
 try:
     db_uri = os.getenv("DB_URI", "")
-    db_uri = base64.b64decode(db_uri).decode("utf-8")
+    # db_uri = base64.b64decode(db_uri).decode("utf-8")
     parsed_uri = urlparse(db_uri)
     host = parsed_uri.hostname
     port = parsed_uri.port
@@ -20,7 +23,7 @@ try:
     password = os.getenv("DB_PASSWORD")
 
 except Exception as db_e:
-    print(db_e)
+    logger.exception("Unable to obtain database credentials.")
 
 
 class Database:
@@ -37,4 +40,4 @@ class Database:
             )
         except Exception as e:
             self.conn = None
-            print(f"ERROR WITH DB CONNECTION: {e}")
+            logger.exception("Unable to connect to the database.")

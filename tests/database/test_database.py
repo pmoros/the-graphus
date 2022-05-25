@@ -1,6 +1,6 @@
-import app
 from unittest import TestCase
 
+import app
 from app.database.database import Database
 
 
@@ -10,5 +10,5 @@ class DatabaseTest(TestCase):
         self.app.testing = True
         self.database = Database()
 
-    def test_init(self):
-        assert self.database.lock is not None
+    def test_should_init_database_connection(self):
+        assert self.database.conn is not None
