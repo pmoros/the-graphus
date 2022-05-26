@@ -1,4 +1,3 @@
-import base64
 import os
 from urllib.parse import urlparse
 
@@ -14,7 +13,6 @@ def create_database_conn():
     load_dotenv()
 
     db_uri = os.getenv("DB_URI", "")
-    db_uri = base64.b64decode(db_uri).decode("utf-8")
     parsed_uri = urlparse(db_uri)
 
     host = parsed_uri.hostname
