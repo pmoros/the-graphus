@@ -13,10 +13,14 @@ class UsersController:
         google_user = self.auth_service.validate_token(google_token)
 
         try:
-            return self.db.get_user_by_sub(google_user.get('sub')), HTTPStatus.OK
+            self.db.get_user_by_sub(google_user.get('sub'))
+            self.db.update_user(google_user)
+            status = HTTPStatus.OK
         except UserNotFoundException:
             self.db.create_user(google_user)
-            return self.db.get_user_by_sub(google_user.get('sub')), HTTPStatus.CREATED
+            status = HTTPStatus.CREATED
+
+        return self.db.get_user_by_sub(google_user.get('sub')), status
 
     def get_user_by_sub(self, sub):
         return self.db.get_user_by_sub(sub)

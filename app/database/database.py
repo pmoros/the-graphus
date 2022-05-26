@@ -9,6 +9,7 @@ from app.log import logger
 
 GET_USER_BY_SUB_QUERY = "SELECT * FROM user WHERE sub = %s"
 CREATE_USER = "INSERT INTO user (sub, email, given_name, family_name, picture) VALUES (%s, %s, %s, %s, %s)"
+UPDATE_USER = "UPDATE user SET email = %s, given_name = %s, family_name = %s, picture = %s WHERE sub = %s"
 
 
 class Database:
@@ -46,11 +47,11 @@ class Database:
     def create_user(self, google_user):
         """Create user by google info."""
 
-        sub = str(google_user.get("sub"))
-        email = str(google_user.get("email"))
-        given_name = str(google_user.get("given_name"))
-        family_name = str(google_user.get("family_name"))
-        picture = str(google_user.get("picture"))
+        sub = str(google_user.get('sub'))
+        email = str(google_user.get('email'))
+        given_name = str(google_user.get('given_name'))
+        family_name = str(google_user.get('family_name'))
+        picture = str(google_user.get('picture'))
 
         with self.lock:
             try:
@@ -63,3 +64,19 @@ class Database:
             except IntegrityError:
                 logger.exception(f"User {sub} already exists.")
 
+    def update_user(self, google_user):
+        """Update user by google info."""
+
+        email = str(google_user.get('email'))
+        given_name = str(google_user.get('given_name'))
+        family_name = str(google_user.get('family_name'))
+        picture = str(google_user.get('picture'))
+        sub = str(google_user.get('sub'))
+
+        with self.lock:
+            self.conn.ping()
+            cur = self.conn.cursor()
+            cur.execute(UPDATE_USER, [email, given_name, family_name, picture, sub])
+            cur.close()
+            self.conn.commit()
+            self.conn.close()
