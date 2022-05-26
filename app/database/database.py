@@ -28,6 +28,9 @@ class Database:
             self.conn = None
             logger.exception(f"Unable to connect to the database. {e}")
 
+    def execute_statement():
+        pass
+
     def get_user_by_sub(self, sub):
         """Get user by sub."""
 
@@ -47,11 +50,11 @@ class Database:
     def create_user(self, google_user):
         """Create user by google info."""
 
-        sub = str(google_user.get('sub'))
-        email = str(google_user.get('email'))
-        given_name = str(google_user.get('given_name'))
-        family_name = str(google_user.get('family_name'))
-        picture = str(google_user.get('picture'))
+        sub = str(google_user.get("sub"))
+        email = str(google_user.get("email"))
+        given_name = str(google_user.get("given_name"))
+        family_name = str(google_user.get("family_name"))
+        picture = str(google_user.get("picture"))
 
         with self.lock:
             try:
@@ -67,11 +70,11 @@ class Database:
     def update_user(self, google_user):
         """Update user by google info."""
 
-        email = str(google_user.get('email'))
-        given_name = str(google_user.get('given_name'))
-        family_name = str(google_user.get('family_name'))
-        picture = str(google_user.get('picture'))
-        sub = str(google_user.get('sub'))
+        email = str(google_user.get("email"))
+        given_name = str(google_user.get("given_name"))
+        family_name = str(google_user.get("family_name"))
+        picture = str(google_user.get("picture"))
+        sub = str(google_user.get("sub"))
 
         with self.lock:
             self.conn.ping()
