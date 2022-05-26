@@ -28,9 +28,6 @@ class Database:
             self.conn = None
             logger.exception(f"Unable to connect to the database. {e}")
 
-    def execute_statement():
-        pass
-
     def get_user_by_sub(self, sub):
         """Get user by sub."""
 
