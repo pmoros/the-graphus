@@ -1,6 +1,8 @@
 """Flask app creation."""
 
 from flask import Flask
+from flask_cors import CORS
+
 from app.blueprints import *
 from app.modules import *
 from flask_wtf.csrf import CSRFProtect
@@ -16,6 +18,7 @@ ACTIVE_ENDPOINTS = [
 def create_app():
     """Create Flask app."""
     app = Flask(__name__)
+    CORS(app)
 
     app.config['WTF_CSRF_CHECK_DEFAULT'] = False
 
