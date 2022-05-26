@@ -42,7 +42,7 @@ def google_login():
     return jsonify({SUCCESS_RESPONSE_TAG: login_data}), status_code
 
 
-@users.route("/<int:user_sub>", methods=["GET"])
+@users.route("/<string:user_sub>", methods=["GET"])
 @error_decorator
 def get_user_by_sub(user_sub):
     logger.warning(f"user_sub: {user_sub}")
