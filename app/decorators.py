@@ -20,11 +20,8 @@ def error_decorator(func):
         except ValidationError as ve:
             logger.error(f"{ve.__class__.__name__}: {ve}")
             return jsonify({ERROR_RESPONSE_TAG: 'Invalid JSON format'}), HTTPStatus.BAD_REQUEST
-        except UserNotFoundException as unf:
-            logger.error(f"{unf.__class__.__name__}: {unf}")
-            return jsonify({ERROR_RESPONSE_TAG: 'User not found'}), HTTPStatus.NOT_FOUND
-        except AcademicHistoryNotFoundException as ahnf:
-            logger.error(f"{ahnf.__class__.__name__}: {ahnf}")
-            return jsonify({ERROR_RESPONSE_TAG: 'Academic History not found'}), HTTPStatus.NOT_FOUND
+        except ResourceNotFoundException as rnfe:
+            logger.error(f"{rnfe.__class__.__name__}")
+            return jsonify({ERROR_RESPONSE_TAG: f'{rnfe.resource} not found'}), HTTPStatus.NOT_FOUND
 
     return wrapper

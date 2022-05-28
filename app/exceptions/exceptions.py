@@ -2,13 +2,27 @@ class InvalidTokenException(Exception):
     pass
 
 
-class UserNotFoundException(Exception):
-    pass
+class ResourceNotFoundException(Exception):
+    def __init__(self, resource_id, resource=None):
+        self.resource = resource
+        self.resource_id = resource_id
 
 
-class AcademicHistoryNotFoundException(Exception):
-    pass
+class UserNotFoundException(ResourceNotFoundException):
+    def __init__(self):
+        self.resource = 'User'
 
 
-class CurriculaNotFoundException(Exception):
-    pass
+class AcademicHistoryNotFoundException(ResourceNotFoundException):
+    def __init__(self):
+        self.resource = 'Academic History'
+
+
+class CurriculaNotFoundException(ResourceNotFoundException):
+    def __init__(self):
+        self.resource = 'Curricula'
+
+
+class CourseNotFoundException(ResourceNotFoundException):
+    def __init__(self):
+        self.resource = 'Course'

@@ -13,6 +13,8 @@ UPDATE_USER = "UPDATE user SET email = %s, given_name = %s, family_name = %s, pi
 
 GET_ACADEMIC_HISTORIES_BY_USER_ID_QUERY = "SELECT * FROM academic_history WHERE user_id = %s"
 GET_CURRICULA_BY_CURRICULA_ID_QUERY = "SELECT * FROM curricula WHERE curricula_id = %s"
+GET_COURSES_BY_CURRICULA_ID_QUERY =\
+    "SELECT * FROM course WHERE course_id IN (SELECT course_id FROM curricula_has_course WHERE curricula_id = %s)"
 
 
 class Database:
@@ -115,3 +117,19 @@ class Database:
             return row
         else:
             raise CurriculaNotFoundException
+
+    def get_courses_by_curricula_id(self, curricula_id):
+        """Get courses by curricula id."""
+
+        with self.lock:
+            self.conn.ping()
+            cur = self.conn.cursor()
+            cur.execute(GET_COURSES_BY_CURRICULA_ID_QUERY, [curricula_id])
+            rows = cur.fetchall()
+            cur.close()
+            self.conn.commit()
+            self.conn.close()
+        if rows:
+            return rows
+        else:
+            raise CourseNotFoundException
