@@ -8,3 +8,7 @@ class UserNotFoundException(Exception):
 
 class AcademicHistoryNotFoundException(Exception):
     pass
+
+
+class CurriculaNotFoundException(Exception):
+    pass

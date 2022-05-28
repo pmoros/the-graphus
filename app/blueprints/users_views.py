@@ -1,36 +1,15 @@
 """Module with users endpoint."""
-from functools import wraps
 from http import HTTPStatus
 
 from flask import Blueprint, jsonify, request
 from jsonschema import validate
-from jsonschema.exceptions import ValidationError
 
 import app
-from app.exceptions.exceptions import InvalidTokenException, UserNotFoundException
-from app.log import logger
+from app.decorators import error_decorator
 from app.schemas import google_login_schema
-from app.utils.constants import ERROR_RESPONSE_TAG, SUCCESS_RESPONSE_TAG
+from app.utils.constants import SUCCESS_RESPONSE_TAG
 
 users = Blueprint("users", __name__)
-
-
-def error_decorator(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except InvalidTokenException as ite:
-            logger.error(f"{ite.__class__.__name__}: {ite}")
-            return jsonify({ERROR_RESPONSE_TAG: 'Invalid tokenId'}), HTTPStatus.UNAUTHORIZED
-        except ValidationError as ve:
-            logger.error(f"{ve.__class__.__name__}: {ve}")
-            return jsonify({ERROR_RESPONSE_TAG: 'Invalid JSON format'}), HTTPStatus.BAD_REQUEST
-        except UserNotFoundException as unf:
-            logger.error(f"{unf.__class__.__name__}: {unf}")
-            return jsonify({ERROR_RESPONSE_TAG: 'User not found'}), HTTPStatus.NOT_FOUND
-
-    return wrapper
 
 
 @users.route("/login", methods=["POST"])
