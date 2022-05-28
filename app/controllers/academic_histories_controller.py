@@ -6,12 +6,13 @@ def get_weighted_mean(courses, pa=False):
     grade_times_credits = 0.0
     total_credits = 0
     for course in courses:
-        if pa:
-            if course.get('last_time_seen') != TRUE:
-                continue
-        if course.get('grade') and course.get('taking_course') != TRUE:
-            grade_times_credits += course.get('grade') * course.get('credits')
-            total_credits += course.get('credits')
+        if course.get('taking_course') != TRUE:
+            if pa:
+                if course.get('last_time_seen') != TRUE:
+                    continue
+            if course.get('grade'):
+                grade_times_credits += course.get('grade') * course.get('credits')
+                total_credits += course.get('credits')
 
     if total_credits == 0:
         return 0
@@ -31,6 +32,7 @@ class AcademicHistoriesController:
         for academic_history in academic_histories:
             curricula = self.db.get_curricula_by_curricula_id(academic_history.pop('curricula_curricula_id', None))
             academic_history['curricula'] = curricula
+            academic_history['credit_bag'] = INITIAL_CREDIT_BAG
 
             courses = self.db.get_courses_by_curricula_id(curricula.get('curricula_id'))
 
@@ -42,9 +44,13 @@ class AcademicHistoriesController:
 
                 semester['courses'] = semester.get('courses', []) + [course]
                 semester['credits'] = semester.get('credits', 0) + course.get('credits', 0)
-                if course.get('passed') == TRUE:
-                    academic_history['credits_seen'] =\
-                        academic_history.get('credits_seen', 0) + course.get('credits', 0)
+                if course.get('taking_course') != TRUE:
+                    if course.get('passed') == TRUE:
+                        academic_history['credits_seen'] =\
+                            academic_history.get('credits_seen', 0) + course.get('credits', 0)
+                    else:
+                        academic_history['credit_bag'] =\
+                            academic_history.get('credit_bag', 0) - course.get('credits', 0)
                 semester[PAPPI] = get_weighted_mean(semester.get('courses'))
 
                 semesters_history[semester_id] = semester

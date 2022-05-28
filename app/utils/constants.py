@@ -8,3 +8,5 @@ PAPA = "PAPA"
 PA = "PA"
 
 TRUE = 1
+
+INITIAL_CREDIT_BAG = 80
