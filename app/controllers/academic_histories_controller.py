@@ -43,7 +43,8 @@ class AcademicHistoriesController:
                 semester['courses'] = semester.get('courses', []) + [course]
                 semester['credits'] = semester.get('credits', 0) + course.get('credits', 0)
                 if course.get('passed') == TRUE:
-                    academic_history['credits_seen'] = academic_history.get('credits_seen', 0) + course.get('credits', 0)
+                    academic_history['credits_seen'] =\
+                        academic_history.get('credits_seen', 0) + course.get('credits', 0)
                 semester[PAPPI] = get_weighted_mean(semester.get('courses'))
 
                 semesters_history[semester_id] = semester
