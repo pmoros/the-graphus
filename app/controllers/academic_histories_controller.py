@@ -52,5 +52,7 @@ class AcademicHistoriesController:
             academic_history['semesters'] = semesters_history
             academic_history[PAPA] = get_weighted_mean(courses)
             academic_history[PA] = get_weighted_mean(courses, pa=True)
+            academic_history["percentage"] =\
+                academic_history.get("credits_seen", 0) / academic_history.get("total_credits", 1) * 100
 
         return academic_histories
