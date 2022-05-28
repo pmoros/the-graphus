@@ -4,12 +4,14 @@ from threading import Lock
 import pymysql
 from pymysql import IntegrityError
 
-from app.exceptions.exceptions import UserNotFoundException
+from app.exceptions.exceptions import UserNotFoundException, AcademicHistoryNotFoundException
 from app.log import logger
 
 GET_USER_BY_SUB_QUERY = "SELECT * FROM user WHERE sub = %s"
 CREATE_USER = "INSERT INTO user (sub, email, given_name, family_name, picture) VALUES (%s, %s, %s, %s, %s)"
 UPDATE_USER = "UPDATE user SET email = %s, given_name = %s, family_name = %s, picture = %s WHERE sub = %s"
+
+GET_ACADEMIC_HISTORIES_BY_USER_ID_QUERY = "SELECT * FROM academic_history WHERE user_id  = %s"
 
 
 class Database:
@@ -80,3 +82,19 @@ class Database:
             cur.close()
             self.conn.commit()
             self.conn.close()
+
+    def get_academic_histories_by_user_id(self, user_id):
+        """Get user by user id."""
+
+        with self.lock:
+            self.conn.ping()
+            cur = self.conn.cursor()
+            cur.execute(GET_ACADEMIC_HISTORIES_BY_USER_ID_QUERY, [user_id])
+            rows = cur.fetchall()
+            cur.close()
+            self.conn.commit()
+            self.conn.close()
+        if rows:
+            return rows
+        else:
+            raise AcademicHistoryNotFoundException

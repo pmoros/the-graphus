@@ -4,3 +4,7 @@ class InvalidTokenException(Exception):
 
 class UserNotFoundException(Exception):
     pass
+
+
+class AcademicHistoryNotFoundException(Exception):
+    pass

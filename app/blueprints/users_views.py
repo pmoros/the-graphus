@@ -45,6 +45,5 @@ def google_login():
 @users.route("/<string:user_sub>", methods=["GET"])
 @error_decorator
 def get_user_by_sub(user_sub):
-    logger.warning(f"user_sub: {user_sub}")
     res = app.users_controller.get_user_by_sub(user_sub)
     return jsonify({SUCCESS_RESPONSE_TAG: res}), HTTPStatus.OK
