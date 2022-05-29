@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - 62-login-backend
+      - main
 
 jobs:
   build:
