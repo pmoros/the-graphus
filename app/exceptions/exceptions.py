@@ -10,19 +10,19 @@ class ResourceNotFoundException(Exception):
 
 class UserNotFoundException(ResourceNotFoundException):
     def __init__(self):
-        self.resource = 'User'
+        self.resource = "User"
 
 
 class AcademicHistoryNotFoundException(ResourceNotFoundException):
     def __init__(self):
-        self.resource = 'Academic History'
+        self.resource = "Academic History"
 
 
 class CurriculaNotFoundException(ResourceNotFoundException):
     def __init__(self):
-        self.resource = 'Curricula'
+        self.resource = "Curricula"
 
 
 class CourseNotFoundException(ResourceNotFoundException):
     def __init__(self):
-        self.resource = 'Course'
+        self.resource = "Course"
