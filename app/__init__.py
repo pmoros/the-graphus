@@ -1,4 +1,6 @@
 """Flask app creation."""
+import os
+from dotenv import load_dotenv
 
 from flask import Flask
 from flask_cors import CORS
@@ -12,16 +14,18 @@ from flask_wtf.csrf import CSRFProtect
 ACTIVE_ENDPOINTS = [
     {"url": "/ping", "bp": ping},
     {"url": "/users", "bp": users},
-    {"url": "/academic-histories", "bp": academic_histories}
+    {"url": "/academic-histories", "bp": academic_histories},
 ]
 
 
 def create_app():
     """Create Flask app."""
+    load_dotenv()
     app = Flask(__name__)
     CORS(app)
 
-    app.config['WTF_CSRF_CHECK_DEFAULT'] = False
+    app.config["WTF_CSRF_CHECK_DEFAULT"] = False
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "")
 
     csrf = CSRFProtect()
     csrf.init_app(app)  # Compliant
