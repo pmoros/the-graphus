@@ -6,7 +6,7 @@ import app
 from app.decorators import error_decorator
 from app.utils.constants import SUCCESS_RESPONSE_TAG
 
-academic_histories = Blueprint("academic_histories", __name__)
+academic_histories = Blueprint("academic-histories", __name__)
 
 
 @academic_histories.route("/user/<string:user_sub>", methods=["GET"])

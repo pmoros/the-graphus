@@ -7,7 +7,7 @@ from app.controllers.academic_histories_controller import AcademicHistoriesContr
 from app.controllers.ping_controller import PingController
 from app.controllers.users_controller import UsersController
 from app.database.database import Database
-from app.services.google_auth_service import GoogleAuthService
+from app.services.auth_service import GoogleAuthService
 
 
 def create_database_conn():
