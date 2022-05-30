@@ -1,0 +1,24 @@
+name: Black Python
+
+on: [push]
+jobs:
+  black:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Black dependency
+        run: |
+          pip3 install black
+      - name: Display file changes
+        run: |
+          python3 -m black . --diff
+      - name: Auto format Python files
+        run: |
+          python3 -m black .
