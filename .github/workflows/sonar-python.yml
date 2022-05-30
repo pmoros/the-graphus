@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requirements.txt
+          pip install -r requirements.txt
       - name: Test with unittest
         run: |
           coverage run --source app -m unittest discover && coverage xml -i
