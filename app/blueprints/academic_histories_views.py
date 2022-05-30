@@ -11,8 +11,8 @@ academic_histories = Blueprint("academic-histories", __name__)
 
 
 @academic_histories.route("/user/<string:user_sub>", methods=["GET"])
-@sub_must_match
 @error_decorator
+@sub_must_match
 def get_academic_histories_by_user_sub(user_sub):
     """
     Get all academic histories of a user

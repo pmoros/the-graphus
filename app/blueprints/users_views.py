@@ -24,8 +24,8 @@ def google_login():
 
 
 @users.route("/<string:user_sub>", methods=["GET"])
-@sub_must_match
 @error_decorator
+@sub_must_match
 def get_user_by_sub(user_sub):
     res = app.users_controller.get_user_by_sub(user_sub)
     return (

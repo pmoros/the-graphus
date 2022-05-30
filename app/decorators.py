@@ -3,7 +3,7 @@ from http import HTTPStatus
 
 from flask import jsonify, request
 from jsonschema.exceptions import ValidationError
-
+from jwt.exceptions import ExpiredSignatureError
 from app.exceptions.exceptions import *
 from app.log import logger
 from app.utils.constants import *
@@ -33,6 +33,13 @@ def error_decorator(func):
             return (
                 jsonify({ERROR_RESPONSE_TAG: f"{rnfe.resource} not found"}),
                 HTTPStatus.NOT_FOUND,
+            )
+
+        except ExpiredSignatureError:
+            logger.error(f"{ExpiredSignatureError.__name__}")
+            return (
+                jsonify({ERROR_RESPONSE_TAG: "Token expired"}),
+                HTTPStatus.UNAUTHORIZED,
             )
 
     return wrapper
