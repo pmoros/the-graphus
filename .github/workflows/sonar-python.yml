@@ -24,7 +24,7 @@ jobs:
           pip install -r requirements.txt
       - name: Test with unittest
         run: |
-          coverage run --source app -m unittest discover && coverage xml -i
+          coverage run --source app -m unittest discover -s ./tests/unit  -p 'test_*.py' && coverage xml -i
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
