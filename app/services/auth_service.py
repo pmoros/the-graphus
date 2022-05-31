@@ -21,8 +21,6 @@ class GoogleAuthService:
         except ValueError as invalid_token:
             raise InvalidTokenException from invalid_token
 
-    # TODO: Handle GoogleAuthError when token is expired
-
 
 class AppAuthService:
     @staticmethod
