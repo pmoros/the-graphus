@@ -25,4 +25,4 @@ class UsersController:
         return auth_token, self.db.get_user_by_sub(google_user.get("sub")), status
 
     def get_user_by_sub(self, sub):
-        return self.db.get_user_by_sub(sub), HTTPStatus.OK
+        return self.db.get_user_by_sub(sub)

@@ -28,7 +28,4 @@ def google_login():
 @sub_must_match
 def get_user_by_sub(user_sub):
     res = app.users_controller.get_user_by_sub(user_sub)
-    return (
-        jsonify({SUCCESS_RESPONSE_TAG: res}),
-        HTTPStatus.OK,
-    )
+    return jsonify({SUCCESS_RESPONSE_TAG: res}), HTTPStatus.OK
