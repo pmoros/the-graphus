@@ -11,10 +11,7 @@ class UsersController:
 
     def google_login(self, login_data):        
         google_token = login_data.get("tokenId")
-        try:
-            google_user = self.google_auth_service.validate_token(google_token)
-        except InvalidTokenException:
-            return None, {"message": "Invalid token"}, HTTPStatus.UNAUTHORIZED
+        google_user = self.google_auth_service.validate_token(google_token)
 
         try:
             self.db.get_user_by_sub(google_user.get("sub"))
