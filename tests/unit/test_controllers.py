@@ -25,18 +25,6 @@ class TestUserController(TestCase):
         }
         self.app = Flask("test")
 
-    def test_should_not_login_invalid_token(self):
-        with self.app.app_context():
-            self.user_controller.google_auth_service.validate_token.side_effect = (
-                auth_service.InvalidTokenException
-            )
-
-            _, _, status = self.user_controller.google_login(
-                {"tokenId": "sample_invalid_token"}
-            )
-
-            self.assertEqual(status, 401)
-
     @mock.patch("app.controllers.users_controller.auth_service.AppAuthService")
     def test_should_google_login(self, mock_app_auth_service):
         mock_app_auth_service.return_value.generate_token.return_value = "token_string"
