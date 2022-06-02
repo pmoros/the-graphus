@@ -28,6 +28,7 @@ share/python-wheels/
 MANIFEST
 
 .idea/
+.vscode/
 .DS_Store
 
 # PyInstaller
