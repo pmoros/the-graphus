@@ -58,44 +58,11 @@ def token_required(func):
         else:
             try:
                 token = AppAuthService.parse_token(token)
-                AppAuthService.extract_token(token)
+                token_decoded = AppAuthService.extract_token(token)
+                sub = token_decoded.get("sub")
             except ValueError:
-                return (
-                    jsonify({ERROR_RESPONSE_TAG: "Invalid token"}),
-                    HTTPStatus.BAD_REQUEST,
-                )
+                raise InvalidTokenException
 
-        return func(*args, **kwargs)
-
-    return wrapper
-
-
-def sub_must_match(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        token = request.headers.get("Authorization")
-        if not token:
-            return (
-                jsonify({ERROR_RESPONSE_TAG: "Token is missing"}),
-                HTTPStatus.UNAUTHORIZED,
-            )
-        else:
-            try:
-                token = AppAuthService.parse_token(token)
-                token_data = AppAuthService.extract_token(token)
-                token_sub = token_data.get("sub")
-                request_sub = request.view_args.get("user_sub")
-                if token_sub != request_sub:
-                    return (
-                        jsonify({ERROR_RESPONSE_TAG: "Token sub does not match"}),
-                        HTTPStatus.UNAUTHORIZED,
-                    )
-            except ValueError:
-                return (
-                    jsonify({ERROR_RESPONSE_TAG: "Invalid token"}),
-                    HTTPStatus.BAD_REQUEST,
-                )
-
-        return func(*args, **kwargs)
+        return func(user_sub=sub, *args, **kwargs)
 
     return wrapper
