@@ -59,6 +59,27 @@ def token_required(func):
             try:
                 token = AppAuthService.parse_token(token)
                 token_decoded = AppAuthService.extract_token(token)
+            except ValueError:
+                raise InvalidTokenException
+
+        return func(*args, **kwargs)
+
+    return wrapper
+
+def token_required_sub(func):
+    # TODO: refactor errors
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        token = request.headers.get("Authorization")
+        if not token:
+            return (
+                jsonify({ERROR_RESPONSE_TAG: "Token is missing"}),
+                HTTPStatus.UNAUTHORIZED,
+            )
+        else:
+            try:
+                token = AppAuthService.parse_token(token)
+                token_decoded = AppAuthService.extract_token(token)
                 sub = token_decoded.get("sub")
             except ValueError:
                 raise InvalidTokenException
