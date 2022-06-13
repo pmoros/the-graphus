@@ -15,6 +15,8 @@ UPDATE_USER = "UPDATE user SET email = %s, given_name = %s, family_name = %s, pi
 GET_ACADEMIC_HISTORIES_BY_USER_ID_QUERY = (
     "SELECT * FROM academic_history WHERE user_id = %s"
 )
+
+GET_PROGRAM_INFO_BY_PROGRAM_CODE_QUERY = "SELECT * FROM program WHERE code = %s"
 GET_CURRICULA_BY_CURRICULA_ID_QUERY = "SELECT * FROM curricula WHERE curricula_id = %s"
 GET_COURSES_BY_CURRICULA_ID_QUERY = "SELECT course_id,\
         course_identifier AS identifier,\
@@ -94,6 +96,18 @@ class Database:
             return academic_histories
         else:
             raise AcademicHistoryNotFoundException
+
+    def get_program_info_by_program_code(self, program_code):
+        """Get program info by program id."""
+
+        with self.lock:
+            program_info = self.db_read_one(
+                GET_PROGRAM_INFO_BY_PROGRAM_CODE_QUERY, [program_code]
+            )
+        if program_info:
+            return program_info
+        else:
+            raise CourseNotFoundException
 
     def get_curricula_by_curricula_id(self, curricula_id):
         """Get curricula by curricula id."""
