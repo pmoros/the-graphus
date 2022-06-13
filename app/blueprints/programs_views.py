@@ -14,9 +14,8 @@ programs = Blueprint("programs", __name__)
 @error_decorator
 @token_required
 def get_program_curricula(program_code, curricula_id):
-    program_code = "2879"  # ! Just for testing
-    # Use 1 for testing in local database
-    curricula_id = 4  # ! Just for testing in production database
+    program_code = str(program_code)
+    curricula_id = int(curricula_id)
 
     program_curricula = {}
     program_curricula["code"] = program_code
