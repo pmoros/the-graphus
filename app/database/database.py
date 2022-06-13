@@ -16,7 +16,17 @@ GET_ACADEMIC_HISTORIES_BY_USER_ID_QUERY = (
     "SELECT * FROM academic_history WHERE user_id = %s"
 )
 GET_CURRICULA_BY_CURRICULA_ID_QUERY = "SELECT * FROM curricula WHERE curricula_id = %s"
-GET_COURSES_BY_CURRICULA_ID_QUERY = "SELECT * FROM course WHERE course_id IN (SELECT course_id FROM curricula_has_course WHERE curricula_id = %s)"
+GET_COURSES_BY_CURRICULA_ID_QUERY = "SELECT course_id,\
+        course_identifier AS identifier,\
+        course_code AS code,\
+        course_name AS name,\
+        course_credits AS credits,\
+        course_expertise_field AS expertise,\
+        color,\
+        semester_number AS semester\
+    FROM program_courses\
+    WHERE curricula_id = %s"
+GET_COURSE_REQUIREMENTS_BY_CURRICULA_ID_QUERY = "SELECT course_id, required_course_identifier AS identifier FROM heroku_ba777beae53af5a.course_requirements WHERE curricula_id = %s"
 
 
 class Database:
@@ -106,6 +116,18 @@ class Database:
             )
         if courses:
             return courses
+        else:
+            raise CourseNotFoundException
+
+    def get_requirements_by_curricula_id(self, curricula_id):
+        """Get requirements by curricula id."""
+
+        with self.lock:
+            requirements = self.db_read_all(
+                GET_COURSE_REQUIREMENTS_BY_CURRICULA_ID_QUERY, [curricula_id]
+            )
+        if requirements:
+            return requirements
         else:
             raise CourseNotFoundException
 

@@ -7,8 +7,8 @@ from app.log import logger
 def with_connection(f):
     @wraps(f)
     def with_connection_(self, *args, **kwargs):
-        self.conn.ping()
         try:
+            self.conn.ping()
             result = f(self, *args, **kwargs)
         except pymysql.IntegrityError as e:
             raise e
@@ -19,6 +19,7 @@ def with_connection(f):
             self.conn.commit()
         finally:
             self.conn.close()
+
         return result
 
     return with_connection_

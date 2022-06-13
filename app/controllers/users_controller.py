@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from app.exceptions.exceptions import InvalidTokenException, UserNotFoundException
+from app.exceptions.exceptions import UserNotFoundException
 from app.services import auth_service
 
 
@@ -9,7 +9,7 @@ class UsersController:
         self.db = db
         self.google_auth_service = auth_service
 
-    def google_login(self, login_data):        
+    def google_login(self, login_data):
         google_token = login_data.get("tokenId")
         google_user = self.google_auth_service.validate_token(google_token)
 
