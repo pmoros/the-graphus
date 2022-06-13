@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from app.controllers.academic_histories_controller import AcademicHistoriesController
 from app.controllers.ping_controller import PingController
 from app.controllers.users_controller import UsersController
+from app.controllers.programs_controller import ProgramsController
 from app.database.database import Database
 from app.services.auth_service import GoogleAuthService
 
@@ -39,3 +40,4 @@ google_auth_service = GoogleAuthService(google_client_id)
 ping_controller = PingController(db)
 users_controller = UsersController(db, google_auth_service)
 academic_histories_controller = AcademicHistoriesController(db)
+programs_controller = ProgramsController(db)

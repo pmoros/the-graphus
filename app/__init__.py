@@ -15,6 +15,7 @@ ACTIVE_ENDPOINTS = [
     {"url": "/ping", "bp": ping},
     {"url": "/users", "bp": users},
     {"url": "/academic-histories", "bp": academic_histories},
+    {"url": "/programs", "bp": programs},
 ]
 
 
